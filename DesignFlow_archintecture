@@ -1,0 +1,34 @@
+*Load Balancer* ( divide incoming traffic to multiple servers)
+*Redis* (fast-memory: cashing:dynamically data(like user info) which use frequently store in it use RAM->fast memory meanwhile other data store in DB hard disk which is slow process)
+working flow: data->check cash (data found return) ELSE->fetch from DB ->also save in cashe
+*CDN(content delivery network)* for static data like images and videos , 
+distributed network of edge server, static data upload to servers globally so user can access the data to its near server 
+like if i have my main server in lahore and uer is in Newyork ,fetching dtaa from lahore would take time make high litency (delay) 
+-solution:distrubute the data on edge globalyy servers
+
+[ User Browser / Mobile App ]
+           │
+           ├───► (Requests for Images, Videos, CSS) ───► [ CDN (Cloudflare/AWS CloudFront) ]
+           │                                                       (Fauran images wapas mil gayi)
+           │
+           └───► (Requests for Dynamic Data: Login, Search, Order)
+                       │
+                       ▼
+               [ Load Balancer (Nginx/AWS ALB) ]
+                       │ (Traffic divide karega)
+                       ├───► [ Backend Instance 1 (NodeJS App) ]
+                       ├───► [ Backend Instance 2 (NodeJS App) ] ───┐
+                                                                    │
+         ┌──────────────────────────────────────────────────────────┘
+         ▼
+[ Backend Code ]
+         │
+         ├───► 1. Pehle check karega ───► [ Redis Cache ] ───► (Agar mil gaya to fauran Data Return)
+         │
+         └───► 2. Agar cache mein nahi hai ───► [ Main Database (PostgreSQL/MySQL) ]
+                                                            │
+                                                            ▼
+                                               (Data nikal kar Redis mein save
+                                                karega aur User ko bhej dega)
+
+
