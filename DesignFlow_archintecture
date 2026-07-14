@@ -6,6 +6,8 @@ distributed network of edge server, static data upload to servers globally so us
 like if i have my main server in lahore and uer is in Newyork ,fetching dtaa from lahore would take time make high litency (delay) 
 -solution:distrubute the data on edge globalyy servers
 
+ CDN is network infrastructure, it is configured in your web routing file (like server.js) b
+
 [ User Browser / Mobile App ]
            │
            ├───► (Requests for Images, Videos, CSS) ───► [ CDN (Cloudflare/AWS CloudFront) ]
